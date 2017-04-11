@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe RegisteredApplication, type: :model do
-  let(:user) { User.new(email: "testytester@blocmetrics.com", encrypted_password: "password") }
-  let(:my_registered_application) { user.registered_applications.new(name: "Epic TesterApp", url: "www.epictesterapp.com", user_id: user.id) }
+  let(:user) { create(:user) }
+  let(:my_registered_application) { create(:registered_application, user_id: user.id) }
 
   it { is_expected.to belong_to(:user)}
-  
+
   describe "attributes" do
     it "should have name and url attributes" do
       expect(my_registered_application).to have_attributes(name: my_registered_application.name, url: my_registered_application.url)
