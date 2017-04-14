@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe RegisteredApplication, type: :model do
   let(:user) { create(:user) }
-  let(:my_registered_application) { create(:registered_application, user_id: user.id) }
+  let(:my_registered_application) { create(:registered_application, user: user) }
 
   it { is_expected.to belong_to(:user)}
 

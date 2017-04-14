@@ -21,6 +21,7 @@ gem 'turbolinks'
 gem 'foundation-rails'
 gem 'figaro'
 gem 'devise'
+gem 'protected_attributes'
 
 group :development, :test do
   gem 'byebug'
