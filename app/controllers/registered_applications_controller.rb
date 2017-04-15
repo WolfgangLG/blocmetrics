@@ -1,34 +1,33 @@
 class RegisteredApplicationsController < ApplicationController
   before_action :set_registered_application, only: [:show, :edit, :update, :destroy]
-  # before_action :authenticate_user!, :except => [:show, :index]
+  # before_action :authenticate_user!, :except => [:show]
 
   def index
-    @registered_applications = RegisteredApplication.all
+    @registered_applications = current_user.registered_applications.all
   end
 
   def show
   end
 
-  # GET /registered_applications/new
-  # def new
-  #   @registered_application = RegisteredApplication.new
-  # end
-  #
-  # # GET /registered_applications/1/edit
-  # def edit
-  # end
-  #
-  # # POST /registered_applications
-  # def create
-  #   @registered_application = RegisteredApplication.new(registered_application_params)
-  #
-  #   if @registered_application.save
-  #     redirect_to @registered_application, notice: 'Registered application was successfully created.'
-  #   else
-  #     render :new
-  #   end
-  # end
-  #
+  def new
+    @registered_application = RegisteredApplication.new
+  end
+
+  def edit
+  end
+
+  # POST /registered_applications
+  def create
+    @registered_application = RegisteredApplication.new(registered_application_params)
+    @registered_application.user = current_user
+
+    if @registered_application.save
+      redirect_to @registered_application, notice: 'Registered application was successfully created.'
+    else
+      render :new
+    end
+  end
+
   # # PATCH/PUT /registered_applications/1
   # def update
   #   if @registered_application.update(registered_application_params)
@@ -50,6 +49,7 @@ class RegisteredApplicationsController < ApplicationController
     end
 
     def registered_application_params
-      params[:registered_application]
+      params.require(:registered_application).permit(:name, :url, :user_id)
+      # params[:registered_application]
     end
 end
