@@ -9,7 +9,7 @@
       <%= link_to registered_application.name, registered_application %>
     </div>
     <div class="small-6 medium-4 columns">
-      <div class="button-group">
+      <div class="small button-group">
         <%= link_to 'Edit', edit_registered_application_path(registered_application), :class => 'success button' %>
         <%= link_to 'Destroy', registered_application, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'alert button' %>
       </div>
@@ -18,7 +18,7 @@
 </div>
 
 <div class="row">
-  <div class="small-3 columns">
+  <div class="small-6 medium-4 large-3 columns">
     <%= link_to 'New Registered application', new_registered_application_path, :class => 'success button' %>
   </div>
 </div>
