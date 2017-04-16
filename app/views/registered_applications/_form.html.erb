@@ -2,24 +2,26 @@
   <% if @registered_application.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@registered_application.errors.count, "error") %> prohibited this registered_application from being saved:</h2>
-
       <ul>
-      <% @registered_application.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @registered_application.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_area :url %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="row">
+    <div class="small-8 columns">
+      <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name, placeholder: "App Name" %>
+      </div>
+      <div class="field">
+        <%= f.label :url %>
+        <%= f.text_area :url, placeholder: "Website" %>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    </div>
   </div>
 <% end %>

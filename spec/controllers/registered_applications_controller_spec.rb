@@ -95,61 +95,40 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
         expect(response).to redirect_to(RegisteredApplication.last)
       end
     end
-    #
-    # describe "PUT #update" do
-    #   context "with valid params" do
-    #     let(:new_attributes) {
-    #       skip("Add a hash of attributes valid for your model")
-    #     }
-    #
-    #     it "updates the requested registered_application" do
-    #       registered_application = RegisteredApplication.create! valid_attributes
-    #       put :update, params: {id: registered_application.to_param, registered_application: new_attributes}
-    #       registered_application.reload
-    #       skip("Add assertions for updated state")
-    #     end
-    #
-    #     it "assigns the requested registered_application as @registered_application" do
-    #       registered_application = RegisteredApplication.create! valid_attributes
-    #       put :update, params: {id: registered_application.to_param, registered_application: valid_attributes}
-    #       expect(assigns(:registered_application)).to eq(registered_application)
-    #     end
-    #
-    #     it "redirects to the registered_application" do
-    #       registered_application = RegisteredApplication.create! valid_attributes
-    #       put :update, params: {id: registered_application.to_param, registered_application: valid_attributes}
-    #       expect(response).to redirect_to(registered_application)
-    #     end
-    #   end
-    #
-    #   context "with invalid params" do
-    #     it "assigns the registered_application as @registered_application" do
-    #       registered_application = RegisteredApplication.create! valid_attributes
-    #       put :update, params: {id: registered_application.to_param, registered_application: invalid_attributes}
-    #       expect(assigns(:registered_application)).to eq(registered_application)
-    #     end
-    #
-    #     it "re-renders the 'edit' template" do
-    #       registered_application = RegisteredApplication.create! valid_attributes
-    #       put :update, params: {id: registered_application.to_param, registered_application: invalid_attributes}
-    #       expect(response).to render_template("edit")
-    #     end
-    #   end
-    # end
-    #
-    # describe "DELETE #destroy" do
-    #   it "destroys the requested registered_application" do
-    #     registered_application = RegisteredApplication.create! valid_attributes
-    #     expect {
-    #       delete :destroy, params: {id: registered_application.to_param}
-    #     }.to change(RegisteredApplication, :count).by(-1)
-    #   end
-    #
-    #   it "redirects to the registered_applications list" do
-    #     registered_application = RegisteredApplication.create! valid_attributes
-    #     delete :destroy, params: {id: registered_application.to_param}
-    #     expect(response).to redirect_to(registered_applications_url)
-    #   end
-    # end
+
+    describe "PUT #update" do
+      it "updates post with expected attributes" do
+        new_name = "New Name"
+        new_url = "www.newurl.com"
+
+        put :update, user_id: user.id, id: my_registered_application.id, registered_application: {name: new_name, url: new_url}
+
+        updated_app = assigns(:registered_application)
+        expect(updated_app.id).to eq my_registered_application.id
+        expect(updated_app.name).to eq new_name
+        expect(updated_app.url).to eq new_url
+      end
+
+      it "redirects to the updated app" do
+        new_name = "New Name"
+        new_url = "www.newurl.com"
+
+        put :update, user_id: user.id, id: my_registered_application.id, registered_application: {name: new_name, url: new_url}
+        expect(response).to redirect_to [my_registered_application]
+      end
+    end
+
+    describe "DELETE #destroy" do
+      it "deletes the app" do
+        delete :destroy, user_id: user.id, id: my_registered_application.id
+        count = RegisteredApplication.where({id: my_registered_application.id}).size
+        expect(count).to eq 0
+      end
+
+      it "redirects to reg apps index" do
+        delete :destroy, user_id: user.id, id: my_registered_application.id
+        expect(response).to redirect_to registered_applications_path
+      end
+    end
   end
 end

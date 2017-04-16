@@ -16,7 +16,6 @@ class RegisteredApplicationsController < ApplicationController
   def edit
   end
 
-  # POST /registered_applications
   def create
     @registered_application = RegisteredApplication.new(registered_application_params)
     @registered_application.user = current_user
@@ -28,20 +27,18 @@ class RegisteredApplicationsController < ApplicationController
     end
   end
 
-  # # PATCH/PUT /registered_applications/1
-  # def update
-  #   if @registered_application.update(registered_application_params)
-  #     redirect_to @registered_application, notice: 'Registered application was successfully updated.'
-  #   else
-  #     render :edit
-  #   end
-  # end
-  #
-  # # DELETE /registered_applications/1
-  # def destroy
-  #   @registered_application.destroy
-  #   redirect_to registered_applications_url, notice: 'Registered application was successfully destroyed.'
-  # end
+  def update
+    if @registered_application.update(registered_application_params)
+      redirect_to @registered_application, notice: 'Registered application was successfully updated.'
+    else
+      render :edit, notice: 'There was an error trying to update the application. Please try again.'
+    end
+  end
+
+  def destroy
+    @registered_application.destroy
+    redirect_to registered_applications_url, notice: 'Registered application was successfully destroyed.'
+  end
 
   private
     def set_registered_application

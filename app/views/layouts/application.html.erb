@@ -20,23 +20,22 @@
         <strong><%= link_to 'Site Title', root_path %></strong>
       </div>
       <div id="responsive-menu">
+        <% if user_signed_in? %>
         <div class="top-bar-left">
           <ul class="dropdown menu vertical medium-horizontal">
-            <li><%= link_to 'Applications', registered_applications_path, :class => 'navbar-link' %></li>
-            <!-- <li><a href="#">Two</a></li>
-            <li><a href="#">Three</a></li>
-            <li><a href="#">Four</a></li> -->
+            <li><%= link_to 'Applications', registered_applications_path %></li>
           </ul>
         </div>
+        <% end %>
         <div class="top-bar-right">
           <ul class="dropdown menu vertical medium-horizontal" data-dropdown-menu>
             <% if user_signed_in? %>
               <!-- <li><strong><%= current_user.email %></strong></li> -->
-              <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %></li>
-              <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>
+              <li><%= link_to 'Edit profile', edit_user_registration_path %></li>
+              <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
             <% else %>
-              <li><%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %></li>
-              <li><%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %></li>
+              <li><%= link_to "Sign Up", new_user_registration_path %></li>
+              <li><%= link_to "Sign In", new_user_session_path %></li>
             <% end %>
           </ul>
         </div>
