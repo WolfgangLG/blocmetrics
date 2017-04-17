@@ -12,25 +12,35 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
   let(:my_registered_application) { create(:registered_application, user_id: user.id) }
 
   context "Signed in, authenticated, confirmed user" do
-    # before do
-    #   sign_in user
-    #   # sign_in(:user, User.find(params[:id]))
+    # before(:each) do
+    #   @user = user
+    #   sign_in @user
+    #   @user.confirm
     # end
 
     describe "GET #show" do
-      it "returns http success" do
-        get :show, user_id: user.id, id: my_registered_application.id
-        expect(response).to have_http_status(:success)
+      before do
+        sign_in(user)
       end
+      context "authenticated user" do
+        let(:my_registered_application) { create(:registered_application, user_id: user.id) }
+        before do
+          get(:show, user_id: user.id, id: my_registered_application.id)
+        end
+        it "returns http success" do
+          # get :show, user_id: user.id, id: my_registered_application.id
+          expect(response).to have_http_status(:success)
+        end
 
-      it "renders the #show view" do
-        get :show, user_id: user.id, id: my_registered_application.id
-        expect(response).to render_template :show
-      end
+        it "renders the #show view" do
+          # get :show, user_id: user.id, id: my_registered_application.id
+          expect(response).to render_template :show
+        end
 
-      it "assigns my_registered_application to @registered_application" do
-        get :show, user_id: user.id, id: my_registered_application.id
-        expect(assigns(:registered_application)).to eq(my_registered_application)
+        it "assigns my_registered_application to @registered_application" do
+          # get :show, user_id: user.id, id: my_registered_application.id
+          expect(assigns(:registered_application)).to eq(my_registered_application)
+        end
       end
     end
 

@@ -6,8 +6,8 @@
 
     <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
 
-    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => false %>
     <%= csrf_meta_tags %>
   </head>
 
@@ -17,7 +17,7 @@
         <span class="hidden-for-medium-up" data-responsive-toggle="responsive-menu" data-hide-for="medium">
           <button class="menu-icon dark hidden-for-medium-up" type="button" data-toggle></button>
         </span>
-        <strong><%= link_to 'Site Title', root_path %></strong>
+        <strong><%= link_to 'Blocmetrics', root_path %></strong>
       </div>
       <div id="responsive-menu">
         <% if user_signed_in? %>

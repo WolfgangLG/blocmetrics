@@ -1,7 +1,7 @@
 FactoryGirl.define do
-  pw = Faker::Lorem.characters(7)
+  pw = "password"
   factory :user do
-    email { Faker::Internet.email }
+    email "blahblah@blocmetrics.com"
     password pw
     password_confirmation pw
     confirmed_at Date.today
