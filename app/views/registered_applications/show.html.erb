@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="small-12 columns"><%= content_tag :h1, @registered_application.name %></div>
+</div>
+<div class="row">
+  <div class="small-12 columns"><%= link_to @registered_application.url, "http://#{@registered_application.url}" %></div>
+</div>
+<div class="row">
+  <div class="small-12 columns">
+    <div class="tiny button-group">
+      <%= link_to 'Edit', edit_registered_application_path(@registered_application), :class => 'success button' %>
+      <%= link_to 'Back', registered_applications_path, :class => 'secondary button' %>
+    </div>
+  </div>
+</div>

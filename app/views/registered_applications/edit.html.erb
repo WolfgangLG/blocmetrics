@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="small-12 columns">
+    <h1>Editing Registered Application</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="small-12 columns">
+    <%= render 'form' %>
+    <br>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 columns">
+    <div class="tiny button-group">
+      <%= link_to 'Show', @registered_application, :class => 'success button' %>
+      <%= link_to 'All Apps', registered_applications_path, :class => 'secondary button' %>
+    </div>
+  </div>
+</div>
