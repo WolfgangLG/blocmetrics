@@ -3,6 +3,7 @@ class RegisteredApplicationsController < ApplicationController
   # before_action :authenticate_user!, :except => [:show]
 
   def index
+
     @registered_applications = current_user.registered_applications.all
   end
 

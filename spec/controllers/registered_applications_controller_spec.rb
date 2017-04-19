@@ -2,14 +2,13 @@ require 'rails_helper'
 
 RSpec.describe RegisteredApplicationsController, type: :controller do
   include Devise::Test::IntegrationHelpers
-
   let!(:user) { create(:user) }
-  let(:valid_attributes) { {
-     name: "Testy Tester",
-     url: "www.testytester.com",
-     user_id: 1
-     } }
-  let(:my_registered_application) { create(:registered_application, user_id: user.id) }
+  # let!(:valid_attributes) { {
+    #  name: "Testy Tester",
+    #  url: "www.testytester.com",
+    #  user_id: 1
+    #  } }
+  let!(:my_registered_application) { create(:registered_application, user_id: user.id) }
 
   context "Signed in, authenticated, confirmed user" do
     # before(:each) do
@@ -19,9 +18,6 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
     # end
 
     describe "GET #show" do
-      before do
-        sign_in(user)
-      end
       context "authenticated user" do
         let(:my_registered_application) { create(:registered_application, user_id: user.id) }
         before do
@@ -45,8 +41,15 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
     end
 
     describe "GET #new" do
+      p User.all
+      let!(:new_user) { create(:user, email: 'fdsaf@asdf.com') }
+      before(:each) do
+        sign_in(new_user)
+      end
+
       it "returns http success" do
-        get :new, user_id: user.id
+        p new_user
+        get :new, user_id: new_user.id
         expect(response).to have_http_status(:success)
       end
 
