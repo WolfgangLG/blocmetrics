@@ -15,5 +15,16 @@ User.create!(
 end
 users = User.all
 
+25.times do
+  name = Faker::App.name
+  RegisteredApplication.create!(
+    user: users.sample,
+    name: name,
+    url: "www.#{name.gsub(" ","").downcase}.com"
+  )
+end
+registered_application = RegisteredApplication.all
+
 puts "Seed finished"
 puts "#{User.count} users created"
+puts "#{RegisteredApplication.count} applications created"

@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
+  has_many :registered_applications
   before_save { self.email = email.downcase if email.present? }
 
   validates :name, length: { minimum: 1, maximum: 100 }, presence: true
