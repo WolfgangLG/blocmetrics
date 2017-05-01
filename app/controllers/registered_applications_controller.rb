@@ -1,6 +1,8 @@
 class RegisteredApplicationsController < ApplicationController
   before_action :set_registered_application, only: [:show, :edit, :update, :destroy]
-  # before_action :authenticate_user!, :except => [:show]
+
+  before_action :authenticate_user!
+  before_filter :validate_user_session, only: [:show, :edit, :update, :destroy]
 
   def index
     @registered_applications = current_user.registered_applications.all
@@ -10,7 +12,7 @@ class RegisteredApplicationsController < ApplicationController
   end
 
   def new
-    @registered_application = RegisteredApplication.new
+    @registered_application = current_user.registered_applications.new
   end
 
   def edit
@@ -18,7 +20,7 @@ class RegisteredApplicationsController < ApplicationController
 
   def create
     @registered_application = RegisteredApplication.new(registered_application_params)
-    @registered_application.user = current_user
+    @registered_application.user_id = current_user.id
 
     if @registered_application.save
       redirect_to @registered_application, notice: 'Registered application was successfully created.'
@@ -31,7 +33,7 @@ class RegisteredApplicationsController < ApplicationController
     if @registered_application.update(registered_application_params)
       redirect_to @registered_application, notice: 'Registered application was successfully updated.'
     else
-      render :edit, notice: 'There was an error trying to update the application. Please try again.'
+      render :edit
     end
   end
 
@@ -41,12 +43,18 @@ class RegisteredApplicationsController < ApplicationController
   end
 
   private
+    def validate_user_session
+      @registered_app = RegisteredApplication.find(params[:id])
+      unless @registered_app.user_id == current_user.id
+      redirect_to root_path, notice: "You can't access another user's registered applications"
+      end
+    end
+
     def set_registered_application
       @registered_application = RegisteredApplication.find(params[:id])
     end
 
     def registered_application_params
       params.require(:registered_application).permit(:name, :url, :user_id)
-      # params[:registered_application]
     end
 end

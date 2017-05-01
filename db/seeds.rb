@@ -1,29 +1,31 @@
 User.create!(
-  email: 'l.w.gerdes@gmail.com',
-  password: 'password',
-  password_confirmation: 'password'
+
+  name:             "Ludwig Gerdes",
+  email:            "gerdesludwig@gmail.com",
+  password:         "password",
+  confirmed_at:     Date.today
 )
 
 5.times do
-  pw = Faker::Lorem.characters(7)
   User.create!(
+    name:         Faker::Name.name,
     email:        Faker::Internet.email,
-    password:     pw,
-    password_confirmation: pw
+    password:     Faker::Lorem.characters(10),
+    confirmed_at: Date.today
   )
 end
 users = User.all
 
-# Create Topics
-10.times do
+25.times do
   name = Faker::App.name
   RegisteredApplication.create!(
-    user:  users.sample,
-    name:  name,
-    url:   "www.#{name.gsub(" ","").downcase}.com"
+    user: users.sample,
+    name: name,
+    url: "www.#{name.gsub(" ","").downcase}.com"
   )
 end
-registered_applications = RegisteredApplication.all
+registered_application = RegisteredApplication.all
 
+puts "Seed finished"
 puts "#{User.count} users created"
-puts "#{RegisteredApplication.count} registered_applications created"
+puts "#{RegisteredApplication.count} applications created"

@@ -1,7 +1,8 @@
 FactoryGirl.define do
+  nm = Faker::App.name
   factory :registered_application do
-    user
-    name { Faker::App.name }
-    url  {"www.#{name}.com"}
+    name nm
+    url "www.#{nm.gsub(" ","").downcase}.com"
+    association :user_id, factory: :user, strategy: :build
   end
 end
