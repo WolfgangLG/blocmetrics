@@ -1,5 +1,6 @@
 class RegisteredApplicationsController < ApplicationController
   before_action :set_registered_application, only: [:show, :edit, :update, :destroy]
+
   before_action :authenticate_user!
   before_filter :validate_user_session, only: [:show, :edit, :update, :destroy]
 

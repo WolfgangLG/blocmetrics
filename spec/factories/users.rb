@@ -1,5 +1,5 @@
 FactoryGirl.define do
-    pw = Faker::Lorem.characters(10)
+  pw = Faker::Lorem.characters(10)
   factory :user do
     name Faker::Name.name
     sequence(:email){|n| "user#{n}@blocmetrics.com" }

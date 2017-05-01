@@ -11,5 +11,4 @@ RSpec.describe RegisteredApplication, type: :model do
       expect(my_registered_application).to have_attributes(name: my_registered_application.name, url: my_registered_application.url)
     end
   end
-
 end

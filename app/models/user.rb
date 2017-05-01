@@ -14,5 +14,4 @@ class User < ActiveRecord::Base
           presence: true,
           uniqueness: { case_sensitive: false },
           length: { minimum: 3, maximum: 254 }
-
 end
