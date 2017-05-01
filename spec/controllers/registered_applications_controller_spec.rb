@@ -20,6 +20,13 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
       end
     end
 
+    describe "GET #new" do
+      it "redirects unauthenticated users" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        get :new
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
 
   end
 
@@ -60,13 +67,32 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
       end
     end
 
-    # describe "GET #new" do
-    #   it "assigns a new registered_application as @registered_application" do
-    #     get :new, params: {}, session: valid_session
-    #     expect(assigns(:registered_application)).to be_a_new(RegisteredApplication)
-    #   end
-    # end
-    #
+    describe "GET #new" do
+      before(:each) do
+        sign_in user
+      end
+
+      it "returns http success" do
+        get :new
+        expect(response).to have_http_status(:success)
+      end
+
+      it "renders the #new view" do
+        get :new
+        expect(response).to render_template :new
+      end
+
+      it "instantiates @registered_application" do
+        get :new
+        expect(assigns(:registered_application)).not_to be_nil
+      end
+
+      it "assigns a new registered_application as @registered_application" do
+        get :new
+        expect(assigns(:registered_application)).to be_a_new(RegisteredApplication)
+      end
+    end
+
     # describe "GET #edit" do
     #   it "assigns the requested registered_application as @registered_application" do
     #     registered_application = RegisteredApplication.create! valid_attributes
