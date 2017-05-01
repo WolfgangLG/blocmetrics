@@ -35,6 +35,22 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
       end
     end
 
+    describe "GET #edit" do
+      it "redirects unauthenticated users" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        get :edit, id: registered_application.id
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    describe "PUT #update" do
+      it "redirects unauthenticated users" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        put :update, id: registered_application.id, registered_application: { name: "Testy App Redux", url: "www.testyappredux.com" }
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
   end
 
   context "authenticated user" do
@@ -100,13 +116,39 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
       end
     end
 
-    # describe "GET #edit" do
-    #   it "assigns the requested registered_application as @registered_application" do
-    #     registered_application = RegisteredApplication.create! valid_attributes
-    #     get :edit, params: {id: registered_application.to_param}, session: valid_session
-    #     expect(assigns(:registered_application)).to eq(registered_application)
-    #   end
-    # end
+    describe "GET #edit" do
+      before(:each) do
+        sign_in user
+      end
+
+      it "assigns the requested registered_application as @registered_application" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        get :edit, id: registered_application.id
+        expect(assigns(:registered_application)).to eq(registered_application)
+      end
+
+      it "returns http success" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        get :edit, id: registered_application.id
+        expect(response).to have_http_status(:success)
+      end
+
+      it "renders the #edit view" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        get :edit, id: registered_application.id
+        expect(response).to render_template :edit
+      end
+
+      it "assigns registered_application to be updated to @registered_application" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        get :edit, id: registered_application.id
+        app_instance = assigns(:registered_application)
+
+        expect(app_instance.id).to eq registered_application.id
+        expect(app_instance.name).to eq registered_application.name
+        expect(app_instance.url).to eq registered_application.url
+      end
+    end
 
     describe "POST #create" do
       before(:each) do
@@ -131,47 +173,35 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
       end
     end
 
-    # describe "PUT #update" do
-    #   context "with valid params" do
-    #     let(:new_attributes) {
-    #       skip("Add a hash of attributes valid for your model")
-    #     }
-    #
-    #     it "updates the requested registered_application" do
-    #       registered_application = RegisteredApplication.create! valid_attributes
-    #       put :update, params: {id: registered_application.to_param, registered_application: new_attributes}, session: valid_session
-    #       registered_application.reload
-    #       skip("Add assertions for updated state")
-    #     end
-    #
-    #     it "assigns the requested registered_application as @registered_application" do
-    #       registered_application = RegisteredApplication.create! valid_attributes
-    #       put :update, params: {id: registered_application.to_param, registered_application: valid_attributes}, session: valid_session
-    #       expect(assigns(:registered_application)).to eq(registered_application)
-    #     end
-    #
-    #     it "redirects to the registered_application" do
-    #       registered_application = RegisteredApplication.create! valid_attributes
-    #       put :update, params: {id: registered_application.to_param, registered_application: valid_attributes}, session: valid_session
-    #       expect(response).to redirect_to(registered_application)
-    #     end
-    #   end
-    #
-    #   context "with invalid params" do
-    #     it "assigns the registered_application as @registered_application" do
-    #       registered_application = RegisteredApplication.create! valid_attributes
-    #       put :update, params: {id: registered_application.to_param, registered_application: invalid_attributes}, session: valid_session
-    #       expect(assigns(:registered_application)).to eq(registered_application)
-    #     end
-    #
-    #     it "re-renders the 'edit' template" do
-    #       registered_application = RegisteredApplication.create! valid_attributes
-    #       put :update, params: {id: registered_application.to_param, registered_application: invalid_attributes}, session: valid_session
-    #       expect(response).to render_template("edit")
-    #     end
-    #   end
-    # end
-    #
+    describe "PUT #update" do
+      before(:each) do
+        sign_in user
+      end
+
+      it "updates the requested registered_application" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        put :update, id: registered_application.id, registered_application: { name: "Testy App Redux", url: "www.testyappredux.com" }
+        registered_application.reload
+
+        updated_app = assigns(:registered_application)
+        expect(updated_app.id).to eq registered_application.id
+        expect(updated_app.name).to eq registered_application.name
+        expect(updated_app.url).to eq registered_application.url
+      end
+
+      it "assigns the requested registered_application as @registered_application" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        put :update, id: registered_application.id, registered_application: { name: "Testy App Redux", url: "www.testyappredux.com" }
+        expect(assigns(:registered_application)).to eq(registered_application)
+      end
+
+      it "redirects to the registered_application" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        put :update, id: registered_application.id, registered_application: { name: "Testy App Redux", url: "www.testyappredux.com" }
+        expect(response).to redirect_to(registered_application)
+      end
+    end
+
     # describe "DELETE #destroy" do
     #   it "destroys the requested registered_application" do
     #     registered_application = RegisteredApplication.create! valid_attributes
