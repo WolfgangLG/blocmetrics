@@ -28,6 +28,13 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
       end
     end
 
+    describe "POST #create" do
+      it "redirects unauthenticated users" do
+        post :create, registered_application: { name: "Testy App", url: "www.testytester.com", user_id: user.id }
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
   end
 
   context "authenticated user" do
@@ -100,40 +107,30 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
     #     expect(assigns(:registered_application)).to eq(registered_application)
     #   end
     # end
-    #
-    # describe "POST #create" do
-    #   context "with valid params" do
-    #     it "creates a new RegisteredApplication" do
-    #       expect {
-    #         post :create, params: {registered_application: valid_attributes}, session: valid_session
-    #       }.to change(RegisteredApplication, :count).by(1)
-    #     end
-    #
-    #     it "assigns a newly created registered_application as @registered_application" do
-    #       post :create, params: {registered_application: valid_attributes}, session: valid_session
-    #       expect(assigns(:registered_application)).to be_a(RegisteredApplication)
-    #       expect(assigns(:registered_application)).to be_persisted
-    #     end
-    #
-    #     it "redirects to the created registered_application" do
-    #       post :create, params: {registered_application: valid_attributes}, session: valid_session
-    #       expect(response).to redirect_to(RegisteredApplication.last)
-    #     end
-    #   end
-    #
-    #   context "with invalid params" do
-    #     it "assigns a newly created but unsaved registered_application as @registered_application" do
-    #       post :create, params: {registered_application: invalid_attributes}, session: valid_session
-    #       expect(assigns(:registered_application)).to be_a_new(RegisteredApplication)
-    #     end
-    #
-    #     it "re-renders the 'new' template" do
-    #       post :create, params: {registered_application: invalid_attributes}, session: valid_session
-    #       expect(response).to render_template("new")
-    #     end
-    #   end
-    # end
-    #
+
+    describe "POST #create" do
+      before(:each) do
+        sign_in user
+      end
+
+      it "creates a new RegisteredApplication" do
+        expect {
+          post :create, registered_application: { name: "Testy App", url: "www.testytester.com", user_id: user.id }
+        }.to change(RegisteredApplication, :count).by(1)
+      end
+
+      it "assigns a newly created registered_application as @registered_application" do
+        post :create, registered_application: { name: "Testy App", url: "www.testytester.com", user_id: user.id }
+        expect(assigns(:registered_application)).to be_a(RegisteredApplication)
+        expect(assigns(:registered_application)).to be_persisted
+      end
+
+      it "redirects to the created registered_application" do
+        post :create, registered_application: { name: "Testy App", url: "www.testytester.com", user_id: user.id }
+        expect(response).to redirect_to(RegisteredApplication.last)
+      end
+    end
+
     # describe "PUT #update" do
     #   context "with valid params" do
     #     let(:new_attributes) {

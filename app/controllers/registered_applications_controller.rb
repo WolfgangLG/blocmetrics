@@ -15,17 +15,18 @@ class RegisteredApplicationsController < ApplicationController
 
   # def edit
   # end
-  #
-  # def create
-  #   @registered_application = RegisteredApplication.new(registered_application_params)
-  #
-  #   if @registered_application.save
-  #     redirect_to @registered_application, notice: 'Registered application was successfully created.'
-  #   else
-  #     render :new
-  #   end
-  # end
-  #
+
+  def create
+    @registered_application = RegisteredApplication.new(registered_application_params)
+    @registered_application.user_id = current_user.id
+
+    if @registered_application.save
+      redirect_to @registered_application, notice: 'Registered application was successfully created.'
+    else
+      render :new
+    end
+  end
+
   # def update
   #   if @registered_application.update(registered_application_params)
   #     redirect_to @registered_application, notice: 'Registered application was successfully updated.'
