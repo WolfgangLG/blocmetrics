@@ -35,10 +35,10 @@ class RegisteredApplicationsController < ApplicationController
     end
   end
 
-  # def destroy
-  #   @registered_application.destroy
-  #   redirect_to registered_applications_url, notice: 'Registered application was successfully destroyed.'
-  # end
+  def destroy
+    @registered_application.destroy
+    redirect_to registered_applications_url, notice: 'Registered application was successfully destroyed.'
+  end
 
   private
     def set_registered_application

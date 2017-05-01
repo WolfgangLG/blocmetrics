@@ -51,6 +51,13 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
       end
     end
 
+    describe "DELETE #destroy" do
+      it "redirects unauthenticated users" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        delete :destroy, id: registered_application.id
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
   end
 
   context "authenticated user" do
@@ -202,19 +209,23 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
       end
     end
 
-    # describe "DELETE #destroy" do
-    #   it "destroys the requested registered_application" do
-    #     registered_application = RegisteredApplication.create! valid_attributes
-    #     expect {
-    #       delete :destroy, params: {id: registered_application.to_param}, session: valid_session
-    #     }.to change(RegisteredApplication, :count).by(-1)
-    #   end
-    #
-    #   it "redirects to the registered_applications list" do
-    #     registered_application = RegisteredApplication.create! valid_attributes
-    #     delete :destroy, params: {id: registered_application.to_param}, session: valid_session
-    #     expect(response).to redirect_to(registered_applications_url)
-    #   end
-    # end
+    describe "DELETE #destroy" do
+      before(:each) do
+        sign_in user
+      end
+
+      it "destroys the requested registered_application" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        delete :destroy, id: registered_application.id
+        count = RegisteredApplication.where({id: registered_application.id}).size
+        expect(count).to eq 0
+      end
+
+      it "redirects to the registered_applications list" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        delete :destroy, id: registered_application.id
+        expect(response).to redirect_to(registered_applications_url)
+      end
+    end
   end
 end
