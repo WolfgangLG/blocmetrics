@@ -1,6 +1,7 @@
 class RegisteredApplicationsController < ApplicationController
   before_action :set_registered_application, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
+  before_filter :validate_user_session, only: [:show, :edit, :update, :destroy]
 
   def index
     @registered_applications = current_user.registered_applications.all
@@ -41,6 +42,13 @@ class RegisteredApplicationsController < ApplicationController
   end
 
   private
+    def validate_user_session
+      @registered_app = RegisteredApplication.find(params[:id])
+      unless @registered_app.user_id == current_user.id
+      redirect_to root_path, notice: "You can't access another user's registered applications"
+      end
+    end
+
     def set_registered_application
       @registered_application = RegisteredApplication.find(params[:id])
     end
