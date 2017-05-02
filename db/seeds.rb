@@ -23,7 +23,7 @@ users = User.all
     url: "www.#{name.gsub(" ","").downcase}.com"
   )
 end
-registered_application = RegisteredApplication.all
+registered_applications = RegisteredApplication.all
 
 50.times do
   name = Faker::App.name
@@ -36,3 +36,4 @@ end
 puts "Seed finished"
 puts "#{User.count} users created"
 puts "#{RegisteredApplication.count} applications created"
+puts "#{Event.count} events created"

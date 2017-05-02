@@ -95,6 +95,13 @@ RSpec.describe RegisteredApplicationsController, type: :controller do
         get :show, id: registered_application.id
         expect(assigns(:registered_application)).to eq(registered_application)
       end
+
+      it "assigns a registered application's events to @events" do
+        registered_application = RegisteredApplication.create(name: "Testy App", url: "www.testytester.com", user_id: user.id )
+        event = Event.create(name: "Testy Event", registered_application_id: registered_application.id)
+        get :show, id: registered_application.id
+        expect(registered_application.events.first).to eq(event)
+      end
     end
 
     describe "GET #new" do
