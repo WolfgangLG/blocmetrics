@@ -21,13 +21,13 @@ gem 'turbolinks'
 gem 'foundation-rails'
 gem 'figaro'
 gem 'devise'
+gem 'faker'
 
 group :development, :test do
   gem 'byebug'
   gem 'spring'
   gem 'rspec-rails'
   gem 'shoulda'
-  gem 'faker'
   gem 'factory_girl_rails'
   gem 'pry-rails'
 end
