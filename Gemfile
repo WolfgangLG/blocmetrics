@@ -22,6 +22,8 @@ gem 'foundation-rails'
 gem 'figaro'
 gem 'devise'
 gem 'faker'
+gem 'chartkick'
+gem 'groupdate'
 
 group :development, :test do
   gem 'byebug'
