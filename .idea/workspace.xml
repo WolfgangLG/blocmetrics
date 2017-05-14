@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="647d2ad3-2329-47de-bafa-2fcc6fc7fa30" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/application.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/application.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/registered_applications/show.html.erb" afterPath="$PROJECT_DIR$/app/views/registered_applications/show.html.erb" />
     </list>
@@ -139,7 +138,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.ruby.settings.RubyActiveModuleSdkConfigurable" />
     <property name="FullScreen" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="application.js&#9;FILE&#9;file:///Users/ludwiggerdes/workspace/bloc/blocmetrics/app/assets/javascripts/application.js&#10;registered_applications/show&#9;FILE&#9;file:///Users/ludwiggerdes/workspace/bloc/blocmetrics/app/views/registered_applications/show.html.erb" />
+    <property name="SearchEverywhereHistoryKey" value="schema&#9;FILE&#9;file:///Users/ludwiggerdes/workspace/bloc/blocmetrics/db/schema.rb&#10;application.js&#9;FILE&#9;file:///Users/ludwiggerdes/workspace/bloc/blocmetrics/app/assets/javascripts/application.js&#10;registered_applications/show&#9;FILE&#9;file:///Users/ludwiggerdes/workspace/bloc/blocmetrics/app/views/registered_applications/show.html.erb" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -501,7 +500,7 @@
       <option name="presentableId" value="Default" />
       <updated>1494704125926</updated>
       <workItem from="1494704127177" duration="584000" />
-      <workItem from="1494705705431" duration="4196000" />
+      <workItem from="1494705705431" duration="5147000" />
     </task>
     <servers />
   </component>
@@ -511,7 +510,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4838000" />
+    <option name="totallyTimeSpent" value="5789000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -626,6 +625,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="24" lean-forward="true" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/schema.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="17" column="22" lean-forward="false" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
           <folding />
         </state>
       </provider>
